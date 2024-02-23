@@ -10,7 +10,56 @@
 </head>
 <body>
     <h1>Harry Potter Ansatte</h1>
+    <input type="text" placeholder="Navn på ny lærer..." id="ny-staff-txt">
+    <input type="button" value="Legg til lærer" id="add-btn">
+    <div class="staff-container"></div>
     <h2>hei sann hei</h2>
+    <script>
+        const staffContainer=document.querySelector(".staff-container");
+        const newStaffTxt=document.querySelector("#ny-staff-txt");
+        const addBtn=document.getElementById("add-btn");
+    
+
+        let hogwartsStaff;
+
+        async function fetchStaff(){
+           const hogwartsStaffRequest= await fetch("https://hp-api.onrender.com/api/characters/staff");
+           let result= await hogwartsStaffRequest.json();
+          
+           return result;
+           
+        }
+        console.log(fetchStaff());
+
+        async function fetchAndShowStaff(){
+            try{
+                hogwartsStaff =await fetchStaff();
+                showAllStaff();
+                console.log("Inne i fetchAndShowStaff",hogwartsStaff)
+            }catch{
+                console.log("Oops,klarte ikke laste ned Hogwarts Staff");
+            }
+        }
+        
+        fetchAndShowStaff();     
+        
+        //Read for å vise frem alle ansatte
+
+        function showAllStaff(){
+            hogwartsStaff.forEach((staffMember, index)=>{
+                
+                const staffCard=document.createElement("div");
+                staffCard.innerHTML=`<img src="${staffMember.image}" style="width:100px"/> <h3>${staffMember.name}</h3>`;
+
+                console.log(staffMember.name);
+                staffContainer.append(staffCard);
+                
+            });
+        }
+      
+
+   
+    </script>
     
 </body>
 </html>
