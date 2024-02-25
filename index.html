@@ -71,7 +71,18 @@
             hogwartsStaff.splice(index,1);
             showAllStaff();
         }
-      
+
+    //CREATE
+    
+    function addStaffMember(){
+        hogwartsStaff.unshift({
+            name:newStaffTxt.value,
+
+        });
+        console.log(hogwartsStaff);
+        showAllStaff();
+    }
+    addBtn.onclick=addStaffMember;
 
    
     </script>
